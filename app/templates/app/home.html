@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+
+<div class="row">
+  <div class="col-md-12 mt-5"><br>
+    <h1>List SPJ</h1>
+    <a class="btn btn-primary mt-5" type="button" href="{% url 'tambah-spj' %}">Tambah</a>
+    
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Nama SPJ</th>
+          <th scope="col">Pembuat</th>
+          <th scope="col">Tanggal Dibuat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for spj in spjs %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{spj.nama_spj}}</td>
+          <td>{{spj.pembuat}}</td>
+          <td>{{spj.tgl_pembuatan}}</td>
+          <td><a class="btn btn-primary" href="{% url 'uraian' spj.id %}">Uraian</a></td>
+          <td><a class="btn btn-primary" href="{% url 'edit-spj' spj.id %}">Edit</a></td>
+          <td><a class="btn btn-danger" href="{% url 'delete-spj' spj.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 mt-5"><br>
+
+        <p>Anda yakin ingin menghapus "{{item}}"?</p>
+
+        <form action="{% url 'delete-spj' item.id %}" method="POST">
+
+            {% csrf_token%}
+            <a href="{% url 'home' %}">Cancel</a>
+            <input type="submit" name="Confirm">
+        </form>
+    
+    </div>
+</div>
+
+{% endblock content %}
