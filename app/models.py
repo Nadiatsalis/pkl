@@ -10,8 +10,8 @@ class Spj(models.Model):
     
 class Uraian(models.Model):
 	nama_uraian 			= models.CharField(max_length=255, blank=True, null=True)
-	no_surat	 			= models.CharField(max_length=255)
-	kode_surat	 			= models.CharField(max_length=255)
+	no_surat	 			= models.CharField(max_length=255, blank=True, null=True)
+	kode_surat	 			= models.CharField(max_length=255, blank=True, null=True)
 	surat_ke				= models.IntegerField(default=0)
 	tgl_pembuatan 			= models.DateField()
 	tgl_perubahan_terakhir	= models.DateField(auto_now=True)
