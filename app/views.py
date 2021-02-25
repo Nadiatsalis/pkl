@@ -4,7 +4,7 @@ from .models import Spj, Uraian, TanggalMerah
 from datetime import timedelta, date, datetime
 from django.shortcuts import get_object_or_404
 
-import datetime
+import datetime 
 # from django.contrib.auth import logout_view
 
 # Create your views here.
@@ -66,21 +66,11 @@ def tanggal_merah_create(request):
 
 def create_spj(request):
     title = 'Tambah SPJ'
-    # # pk = self.kwargs.get('pk')
-    # spj = Spj.objects.filter(spj_id=pk)
-    # dt = datetime.now()
-    # dt_month = dt.month
-    # print(dt_month)
-    # t_merah = TanggalMerah.objects.filter(tanggal_merah__month = dt_month)
-    # tanggal_list = [i.tanggal_merah.day for i in t_merah]
-    # spj_date = Spj.tgl_pembuatan.day 
-
-
     dt = datetime.datetime.now()
     dt_month = dt.month
-    print(dt_month)
+    # print(dt_month)
     t_merah = TanggalMerah.objects.filter(tanggal_merah__month = dt_month)
-    tanggal_list = [i.tanggal_merah.day for i in t_merah]
+    tanggal_merah_list = [i.tanggal_merah.day for i in t_merah]
     # print(month_list)
     if request.method == 'POST':
         form = SpjForm(request.POST)
@@ -89,70 +79,96 @@ def create_spj(request):
             print(spj.tgl_pembuatan.strftime("%A"))
             tgl_pemb = date.today() + timedelta(days=1)
             tgl_pemb2 = date.today() + timedelta(days=2)
+            # print(tgl_pemb not in tanggal_merah_list)
 
-          
-            # print(month_list)
-            # spj = Spj.objects.filter(spj_id=pk)
-            
-            # print(Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count())
             if (tgl_pemb.strftime("%A") == 'Saturday') or (tgl_pemb.strftime("%A") =='Sunday'):
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPTK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=date.today() + timedelta(days=1),)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=date.today() + timedelta(days=1),)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPK/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SP/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=date.today() + timedelta(days=1),)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAPHP', kode_surat='PPHP/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=date.today() + timedelta(days=1))
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAP', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=date.today() + timedelta(days=1)) 
-
-                if spj_date in tanggal_list:
-                    print(True)
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPTK/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPK/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=tgl_pemb2)
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=tgl_pemb2)
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPK/PPK/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SP/PPK/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=tgl_pemb2)
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='BAPHP', kode_surat='PPHP/35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=tgl_pemb2)
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=tgl_pemb2, no_surat='BAP', kode_surat='35.09.323')
-                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=tgl_pemb2)
-            #     Uraian.objects.create(tgl_pembuatan= date.today() + timedelta(days=4))
-
+                if tgl_pemb not in tanggal_merah_list:
+                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPTK/35.09.323')
+                else:
+                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=2), no_surat='027', kode_surat='PPTK/35.09.323')
+            
             else:
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPTK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=tgl_pemb2)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=tgl_pemb2)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPK/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SP/PPK/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=tgl_pemb2)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='BAPHP', kode_surat='PPHP/35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=tgl_pemb2)
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=tgl_pemb2, no_surat='BAP', kode_surat='35.09.323')
-                Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=tgl_pemb2)
+                if date.today() + timedelta(days=1) not in tanggal_merah_list:
+                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPTK/35.09.323')
+                else:
+                    Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=2), no_surat='027', kode_surat='PPTK/35.09.323')
+                    
+            #     if date.today() + timedelta(days=2) not in tanggal_merah_list:
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPK/35.09.323')
+                    
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPK/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SP/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAPHP', kode_surat='PPHP/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=date.today() + timedelta(days=1))
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAP', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=date.today() + timedelta(days=1)) 
+            #     else:
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPTK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SPK/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='027', kode_surat='SP/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=date.today() + timedelta(days=1),)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAPHP', kode_surat='PPHP/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=date.today() + timedelta(days=1))
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=date.today() + timedelta(days=1), no_surat='BAP', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=date.today() + timedelta(days=1)) 
+                
+            #     if spj_date in tanggal_list:
+            #         print(True)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPTK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=tgl_pemb2)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=tgl_pemb2)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPK/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SP/PPK/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=tgl_pemb2)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='BAPHP', kode_surat='PPHP/35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=tgl_pemb2)
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=tgl_pemb2, no_surat='BAP', kode_surat='35.09.323')
+            #         Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=tgl_pemb2)
+            # #     Uraian.objects.create(tgl_pembuatan= date.today() + timedelta(days=4))
+
+            # else:
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Pemberitahuan PPTK', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPTK/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pengadaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='PPK/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penjelasan Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPP/PBJ/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penawaran Harga',  tgl_pembuatan=tgl_pemb2)
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembukaan Penawaran, Evaluasi Klarifikasi dan Negosiasi',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAPEK/PBJ/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Berita Acara HPL',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='BAHPL/PBJ/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Penetapan Penyedia Barang/Jasa',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPPBJ/PPK/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Kesanggupan Kerja',  tgl_pembuatan=tgl_pemb2)
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat perintah Kerja (SPK)', tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SPK/PPK/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pesanan',  tgl_pembuatan=tgl_pemb2, no_surat='027', kode_surat='SP/PPK/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Surat Pemberitahuan Pengiriman',  tgl_pembuatan=tgl_pemb2)
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Undangan PPHP',  tgl_pembuatan=tgl_pemb2, no_surat='005', kode_surat='35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Penerimaan Hasil Pekerjaan',  tgl_pembuatan=tgl_pemb2, no_surat='BAPHP', kode_surat='PPHP/35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Permohonan Pencairan',  tgl_pembuatan=tgl_pemb2)
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='BA Pembayaran',  tgl_pembuatan=tgl_pemb2, no_surat='BAP', kode_surat='35.09.323')
+            #     Uraian.objects.create(spj_id=spj, surat_ke=Uraian.objects.filter(tgl_pembuatan__year=date.today().year).count() + 1, nama_uraian='Ringkasan Kontrak',  tgl_pembuatan=tgl_pemb2)
             return redirect('home')
             # else:
             #     pass
